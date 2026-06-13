@@ -1,0 +1,19 @@
+{
+  "listen_port": 8090,
+  "nodes": [
+    {
+      "id": "node-1",
+      "wicklee_url": "http://localhost:8080",
+      "inference_url": "http://localhost:8000"
+    }
+  ],
+  "scoring": {
+    "thermal_headroom_weight": 0.4,
+    "vram_headroom_weight": 0.3,
+    "tok_w_delta_weight": 0.3,
+    "throttle_threshold_pct": -15,
+    "poll_interval_ms": 100
+  },
+  "fallback": "round_robin",
+  "log_file": "decisions.jsonl"
+}
