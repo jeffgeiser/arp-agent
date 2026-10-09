@@ -29,11 +29,9 @@ Create `config_two_nodes.json`:
     }
   ],
   "scoring": {
-    "thermal_headroom_weight": 0.4,
-    "vram_headroom_weight": 0.3,
-    "tok_w_delta_weight": 0.3,
     "throttle_threshold_pct": -15,
-    "poll_interval_ms": 100
+    "poll_interval_ms": 100,
+    "stale_after_ms": 2000
   },
   "fallback": "round_robin",
   "log_file": "decisions.jsonl"
@@ -113,11 +111,11 @@ if __name__ == "__main__":
 Run two mock nodes with different scores:
 
 ```bash
-# node-1: moderate thermal (18%), good VRAM (64%)  → score ~0.53
+# node-1: 71.2C junction (18.8C below a 90C throttle), 5.8 GB of 16 GB VRAM
 python mock_wicklee.py 8080 &
 
-# node-2: better thermal (45%), same VRAM (64%)    → score ~0.65
-# tweak the /health defaults in mock_wicklee.py or add a second app variant
+# node-2: run a copy with a cooler junction_temp_c (e.g. 55.0) so it scores higher.
+# Tweak the /health defaults in mock_wicklee.py or add a second app variant.
 python mock_wicklee.py 8081 &
 
 python agent.py config_two_nodes.json

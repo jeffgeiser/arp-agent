@@ -1,4 +1,5 @@
 {
+  "listen_host": "127.0.0.1",
   "listen_port": 8090,
   "nodes": [
     {
@@ -8,12 +9,21 @@
     }
   ],
   "scoring": {
-    "thermal_headroom_weight": 0.4,
-    "vram_headroom_weight": 0.3,
-    "tok_w_delta_weight": 0.3,
+    "weights": {
+      "thermal_headroom": 0.3,
+      "vram_fit": 0.3,
+      "wes_history": 0.25,
+      "reliability": 0.15
+    },
+    "throttle_c": 90,
+    "target_margin_c": 30,
+    "vram_baseline_gb": 1.0,
     "throttle_threshold_pct": -15,
-    "poll_interval_ms": 100
+    "min_vram_headroom_pct": 10,
+    "poll_interval_ms": 100,
+    "stale_after_ms": 2000
   },
+  "models": {},
   "fallback": "round_robin",
   "log_file": "decisions.jsonl"
 }
